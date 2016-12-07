@@ -15,7 +15,14 @@ function generate_table(){
             tbody.childNodes[i].appendChild(document.createElement('td'));
             tbody.childNodes[i].childNodes[j].appendChild(document.createTextNode('0'));
             tbody.childNodes[i].childNodes[j].setAttribute( "class", "dead" );
-           
+            tbody.childNodes[i].childNodes[j].setAttribute("onclick","resurrect("+i+","+j+")");
          }
     }
+}
+
+
+function resurrect(x,y){
+    tbody.childNodes[x].childNodes[y].textContent="1";
+    tbody.childNodes[x].childNodes[y].setAttribute( "class", "live" );
+ //   console.log('Cordenadas'+x+','+y);
 }

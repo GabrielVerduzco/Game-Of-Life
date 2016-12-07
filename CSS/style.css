@@ -6,3 +6,9 @@ table{
     margin: auto;
 
 }
+.die{
+    background-color: white;
+}
+.live{
+    background-color: black;
+}
