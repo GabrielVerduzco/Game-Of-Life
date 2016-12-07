@@ -1,8 +1,11 @@
 var tbody=document.createElement('tbody');
 
+
+
 function generate_table(){
-    var size = $('#size').val();
-    //console.log(size); 
+    var size = parseInt($('#size').val());
+    //size=size+2;
+    console.log(size); 
     var table=document.createElement('table');
     table.appendChild(tbody);
     table.setAttribute("class","table table-bordered");
@@ -15,16 +18,34 @@ function generate_table(){
             tbody.childNodes[i].appendChild(document.createElement('td'));
             tbody.childNodes[i].childNodes[j].appendChild(document.createTextNode('0'));
             tbody.childNodes[i].childNodes[j].setAttribute( "class", "dead" );
-            tbody.childNodes[i].childNodes[j].setAttribute( "id", i+"-"+j );
+            tbody.childNodes[i].childNodes[j].setAttribute( "id", i+"-"+j);
             tbody.childNodes[i].childNodes[j].setAttribute("onclick","resurrect("+i+","+j+")");
+
          }
     }
+
+    //hideTable(size);
+    document.getElementById("generate").disabled = true;
+
 }
 
+/*function hideTable(size){
+    tbody.childNodes[0].setAttribute("hidden", 'true');
+    for (var i = 0; i <size ; i++) 
+    { 
+         
+         for (var j = 0; j <size ; j++) {
+             tbody.childNodes[i].childNodes[0].setAttribute("hidden", 'true');
+             tbody.childNodes[i].childNodes[size-1].setAttribute("hidden", 'true');
+             
+         }
+    }
+    tbody.childNodes[size-1].setAttribute("hidden", 'true');
+
+}*/
 
 function resurrect(x,y){
     tbody.childNodes[x].childNodes[y].textContent="1";
-
     tbody.childNodes[x].childNodes[y].setAttribute( "class", "live" );
  //   console.log('Cordenadas'+x+','+y);
 }
@@ -39,8 +60,6 @@ function play(){
 		{
             //var state = $("#"+i+"-"+j).attr('class');
             if(i==0 || j==0 ||i==size-1 || j==size-1){}
-
-
             else
             {
             
@@ -54,33 +73,19 @@ function play(){
                 //console.log('limites arriba:'+limitUpI+','+limitUpJ);
                 var stateCell2 = $("#"+i+"-"+j).attr('class');
                 var auxSum=0;
-                //if(stateCell2 == 'live'){
-
-
-                    for(var x=limitUpI;x<=limitDownI;x++)
-                    {
+                for(var x=limitUpI;x<=limitDownI;x++)
+                {
                         for(var y=limitUpJ;y<=limitDownJ;y++)
                         {
                             var stateCell = $("#"+x+"-"+y).attr('class');
                             var valCel=parseInt(tbody.childNodes[x].childNodes[y].textContent);
-                            auxSum = auxSum + valCel;
-                        
-                                
-            
+                            auxSum = auxSum + valCel;         
                             //console.log('estado de la celda=='+stateCell+'==posicion===>'+x+','+y);
-            
-                            
-                                
-                            }
-                    }
+                        }
+                }
 
                     console.log(auxSum);
                     conditionSum(auxSum,i,j);
-                
-                //}
-
-        
-
             }
             
         }
