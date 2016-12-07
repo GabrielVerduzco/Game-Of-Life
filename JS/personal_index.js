@@ -47,31 +47,29 @@ function generate_table(){
 function resurrect(x,y){
     tbody.childNodes[x].childNodes[y].textContent="1";
     tbody.childNodes[x].childNodes[y].setAttribute( "class", "live" );
- //   console.log('Cordenadas'+x+','+y);
 }
 
 
 function play(){
     var size = $('#size').val();
 
-    var cells = copyTable(size);
-    
+  
+    var cells = [];
     for(var i=0;i<size;i++)
     {
+         cells[i] = [];
 		for(var j=0;j<size;j++)
 		{
-            //var state = $("#"+i+"-"+j).attr('class');
+
+            
             if(i==0 || j==0 ||i==size-1 || j==size-1){}
             else
             {
-                //console.log(i,j);
                 var limitDownI=0, limitDownJ=0, limitUpI=0, limitUpJ=0;     
                 limitDownI = i+1;
                 limitDownJ = j+1;
                 limitUpI = i-1;
                 limitUpJ = j-1;
-                //console.log('limites abajo:'+limitDownI+','+limitDownJ);
-                //console.log('limites arriba:'+limitUpI+','+limitUpJ);
                 var stateCell2 = $("#"+i+"-"+j).attr('class');
                 var auxSum=0;
                 for(var x=limitUpI;x<=limitDownI;x++)
@@ -81,67 +79,62 @@ function play(){
                             var stateCell = $("#"+x+"-"+y).attr('class');
                             var valCel=parseInt(tbody.childNodes[x].childNodes[y].textContent);
                             auxSum = auxSum + valCel;         
-                            //console.log('estado de la celda=='+stateCell+'==posicion===>'+x+','+y);
                         }
                 }
+                auxSum-=parseInt(tbody.childNodes[i].childNodes[j].textContent);
+                cells[i][j]=auxSum;
 
-                    console.log(auxSum);
-                    conditionSum(auxSum,i,j, cells);
+                   
+    
+              
+                  
+
             }
             
         }
    }
 
-}
-
-function conditionSum(auxSum,x, y, cells){
-    
-    console.log(cells);
-
-    auxSum-=parseInt(tbody.childNodes[x].childNodes[y].textContent);
-    console.log(parseInt(tbody.childNodes[x].childNodes[y].textContent));
-    if (auxSum == 2)
-    {
-    
-    }
-    else if (auxSum < 2)
-    {
-        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 1) 
-        {
-            $("#"+x+"-"+y).html('0').removeClass('live'); 
-        }
-    }
-    else if (auxSum > 3)
-    {
-        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 1) 
-        {
-            $("#"+x+"-"+y).html('0').removeClass('live'); ; 
-        }
-    }
-    else if (auxSum == 3)
-    {                           
-        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 0) 
-        {
-            $("#"+x+"-"+y).html('1').removeClass('dead').addClass('live');
-        }
-    }
-}
-
-
- function copyTable(size) {
-    var cells = [];
-    for (var i = 0; i < size; i++)
-    {
-        cells[i] = [];
-        for (var j = 0; j<size; j++)
-        {
-           cells[i][j]=parseInt(tbody.childNodes[i].childNodes[j].textContent);
-            
-        }
-    }
-    //console.log(cells);
-    return cells;
+    conditionSum(cells, size);
 
 }
+
+function conditionSum(cells, size){
+    for(var i=0;i<size;i++)
+    {
+	    for(var j=0;j<size;j++)
+        {
+       
+        if (cells[i][j] < 2)
+        {
+            if (parseInt(tbody.childNodes[i].childNodes[j].textContent)== 1) 
+                {
+                    $("#"+i+"-"+j).html('0').removeClass('live'); 
+                   
+                }
+        }
+        else if (cells[i][j]  > 3)
+        {
+            if (parseInt(tbody.childNodes[i].childNodes[j].textContent)== 1) 
+            {
+                $("#"+i+"-"+j).html('0').removeClass('live');
+                 
+            }
+        }
+        else if (cells[i][j] == 3)
+        {                           
+            if (parseInt(tbody.childNodes[i].childNodes[j].textContent)== 0) 
+            {
+                $("#"+i+"-"+j).html('1').removeClass('dead').addClass('live');
+                
+            }
+         }
+
+        }
+    }
+
+}
+
+
+
 
 
