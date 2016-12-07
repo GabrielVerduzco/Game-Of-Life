@@ -1,11 +1,6 @@
 var tbody=document.createElement('tbody');
-
-
-
 function generate_table(){
     var size = parseInt($('#size').val());
-    //size=size+2;
-    console.log(size); 
     var table=document.createElement('table');
     table.appendChild(tbody);
     table.setAttribute("class","table table-bordered");
@@ -23,26 +18,9 @@ function generate_table(){
 
          }
     }
-
-    //hideTable(size);
     document.getElementById("generate").disabled = true;
-
 }
 
-/*function hideTable(size){
-    tbody.childNodes[0].setAttribute("hidden", 'true');
-    for (var i = 0; i <size ; i++) 
-    { 
-         
-         for (var j = 0; j <size ; j++) {
-             tbody.childNodes[i].childNodes[0].setAttribute("hidden", 'true');
-             tbody.childNodes[i].childNodes[size-1].setAttribute("hidden", 'true');
-             
-         }
-    }
-    tbody.childNodes[size-1].setAttribute("hidden", 'true');
-
-}*/
 
 function resurrect(x,y){
     tbody.childNodes[x].childNodes[y].textContent="1";
@@ -52,8 +30,6 @@ function resurrect(x,y){
 
 function play(){
     var size = $('#size').val();
-
-  
     var cells = [];
     for(var i=0;i<size;i++)
     {
@@ -83,12 +59,6 @@ function play(){
                 }
                 auxSum-=parseInt(tbody.childNodes[i].childNodes[j].textContent);
                 cells[i][j]=auxSum;
-
-                   
-    
-              
-                  
-
             }
             
         }
