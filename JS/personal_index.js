@@ -53,6 +53,8 @@ function resurrect(x,y){
 
 function play(){
     var size = $('#size').val();
+
+    var cells = copyTable(size);
     
     for(var i=0;i<size;i++)
     {
@@ -62,7 +64,6 @@ function play(){
             if(i==0 || j==0 ||i==size-1 || j==size-1){}
             else
             {
-            
                 //console.log(i,j);
                 var limitDownI=0, limitDownJ=0, limitUpI=0, limitUpJ=0;     
                 limitDownI = i+1;
@@ -85,7 +86,7 @@ function play(){
                 }
 
                     console.log(auxSum);
-                    conditionSum(auxSum,i,j);
+                    conditionSum(auxSum,i,j, cells);
             }
             
         }
@@ -93,7 +94,9 @@ function play(){
 
 }
 
-function conditionSum(auxSum,x, y ){
+function conditionSum(auxSum,x, y, cells){
+    
+    console.log(cells);
 
     auxSum-=parseInt(tbody.childNodes[x].childNodes[y].textContent);
     console.log(parseInt(tbody.childNodes[x].childNodes[y].textContent));
@@ -124,5 +127,21 @@ function conditionSum(auxSum,x, y ){
     }
 }
 
+
+ function copyTable(size) {
+    var cells = [];
+    for (var i = 0; i < size; i++)
+    {
+        cells[i] = [];
+        for (var j = 0; j<size; j++)
+        {
+           cells[i][j]=parseInt(tbody.childNodes[i].childNodes[j].textContent);
+            
+        }
+    }
+    //console.log(cells);
+    return cells;
+
+}
 
 
