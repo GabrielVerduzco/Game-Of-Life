@@ -37,7 +37,7 @@ function play(){
     {
 		for(var j=0;j<size;j++)
 		{
-            var state = $("#"+i+"-"+j).attr('class');
+            //var state = $("#"+i+"-"+j).attr('class');
             if(i==0 || j==0 ||i==size-1 || j==size-1){}
 
 
@@ -54,7 +54,7 @@ function play(){
                 //console.log('limites arriba:'+limitUpI+','+limitUpJ);
                 var stateCell2 = $("#"+i+"-"+j).attr('class');
                 var auxSum=0;
-                if(stateCell2 == 'live'){
+                //if(stateCell2 == 'live'){
 
 
                     for(var x=limitUpI;x<=limitDownI;x++)
@@ -67,7 +67,7 @@ function play(){
                         
                                 
             
-                                console.log('estado de la celda=='+stateCell+'==posicion===>'+x+','+y);
+                            //console.log('estado de la celda=='+stateCell+'==posicion===>'+x+','+y);
             
                             
                                 
@@ -75,14 +75,11 @@ function play(){
                     }
 
                     console.log(auxSum);
+                    conditionSum(auxSum,i,j);
                 
-                }
+                //}
 
-                
-                
-
-         
-
+        
 
             }
             
@@ -90,4 +87,37 @@ function play(){
    }
 
 }
+
+function conditionSum(auxSum,x, y ){
+
+    auxSum-=parseInt(tbody.childNodes[x].childNodes[y].textContent);
+    console.log(parseInt(tbody.childNodes[x].childNodes[y].textContent));
+    if (auxSum == 2)
+    {
+    
+    }
+    else if (auxSum < 2)
+    {
+        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 1) 
+        {
+            $("#"+x+"-"+y).html('0').removeClass('live'); 
+        }
+    }
+    else if (auxSum > 3)
+    {
+        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 1) 
+        {
+            $("#"+x+"-"+y).html('0').removeClass('live'); ; 
+        }
+    }
+    else if (auxSum == 3)
+    {                           
+        if (parseInt(tbody.childNodes[x].childNodes[y].textContent)== 0) 
+        {
+            $("#"+x+"-"+y).html('1').removeClass('dead').addClass('live');
+        }
+    }
+}
+
+
 
