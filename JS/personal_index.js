@@ -1,4 +1,15 @@
+var timeoutID;
 var tbody=document.createElement('tbody');
+var timerId;
+function timer(){
+     timerId= setInterval(function(){ play();}, 3000);
+}
+
+function stop(){
+     clearInterval(timerId);
+}
+
+
 function generate_table(){
     var size = parseInt($('#size').val());
     var table=document.createElement('table');
@@ -15,10 +26,11 @@ function generate_table(){
             tbody.childNodes[i].childNodes[j].setAttribute( "class", "dead" );
             tbody.childNodes[i].childNodes[j].setAttribute( "id", i+"-"+j);
             tbody.childNodes[i].childNodes[j].setAttribute("onclick","resurrect("+i+","+j+")");
-
          }
     }
     document.getElementById("generate").disabled = true;
+    document.getElementById("size").disabled = true;
+    
 }
 
 
@@ -29,15 +41,15 @@ function resurrect(x,y){
 
 
 function play(){
+    
+   
     var size = $('#size').val();
     var cells = [];
     for(var i=0;i<size;i++)
     {
          cells[i] = [];
 		for(var j=0;j<size;j++)
-		{
-
-            
+		{            
             if(i==0 || j==0 ||i==size-1 || j==size-1){}
             else
             {
@@ -65,6 +77,7 @@ function play(){
    }
 
     conditionSum(cells, size);
+   
 
 }
 
